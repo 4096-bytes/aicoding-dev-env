@@ -98,7 +98,7 @@ curl -O https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/macos
 1. **安装 VS Code**: [官网下载](https://code.visualstudio.com/download)
 2. **安装核心插件**:
    - **WSL**: (Windows 用户必装) 用于连接 Ubuntu 环境。
-   - **Codex**: (必装) 4096Bytes AI 编程可视化客户端。
+   - **Codex**: (必装) AI 编程可视化客户端。
 
 ### ✨ 极速启动 (Magic Move)
 
@@ -170,5 +170,6 @@ A: 它会检测现有环境：如果发现 NVM 会跳过；如果发现系统级
 Happy Coding! 🚀
 
 Powered by 4096Bytes Engineering Team
+
 
 
