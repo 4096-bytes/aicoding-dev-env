@@ -98,7 +98,7 @@ To get the best AI coding experience, we recommend **Visual Studio Code**.
 1. **Install VS Code**: 
 2. **Install Core Extensions**:
    - **WSL**: (Required for Windows users) Connects to the Ubuntu environment.
-   - **Codex**: (Required) The 4096Bytes AI coding visualization client.
+   - **Codex**: (Required) The AI coding visualization client.
 
 ### ✨ Quick Start (Magic Move)
 
@@ -170,5 +170,6 @@ A: The script checks your existing environment: if it finds NVM, it skips that s
 Happy Coding! 🚀
 
 Powered by 4096Bytes Engineering Team
+
 
 
