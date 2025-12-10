@@ -249,15 +249,15 @@ else
 model_provider = "crs"
 model = "gpt-5-codex"
 model_reasoning_effort = "high"
+network_access = "enabled"
 disable_response_storage = true
-preferred_auth_method = "apikey"
+
 
 [model_providers.crs]
 name = "crs"
 base_url = "https://$TARGET_DOMAIN/openai"
 wire_api = "responses"
 requires_openai_auth = true
-env_key = "CRS_OAI_KEY"
 EOF
     print_success "Config created with domain: $TARGET_DOMAIN"
 fi
@@ -265,16 +265,6 @@ fi
 # 8.3 Check and Write auth.json
 if [ -f "$HOME/.codex/auth.json" ]; then
     print_info "~/.codex/auth.json already exists. Skipping overwrite."
-else
-    echo ">>> Writing ~/.codex/auth.json..."
-    echo '{ "OPENAI_API_KEY": null }' > ~/.codex/auth.json
-    print_success "Auth file created (OPENAI_API_KEY=null)."
-fi
-
-# 8.4 Check Environment Variable (CRS_OAI_KEY)
-# Only prompt if it's missing from .zshrc
-if grep -q "CRS_OAI_KEY" ~/.zshrc; then
-    print_info "API Key (CRS_OAI_KEY) already configured in .zshrc. Skipping entry."
 else
     echo ""
     echo "----------------------------------------------------"
@@ -289,8 +279,10 @@ else
     done
 
     echo ">>> Configuring Environment Variable..."
-    echo "export CRS_OAI_KEY=$CRS_KEY" >> ~/.zshrc
-    print_success "Added CRS_OAI_KEY to .zshrc."
+    
+    echo ">>> Writing ~/.codex/auth.json..."
+    echo "{ \"OPENAI_API_KEY\": \"$CRS_KEY\" }" > ~/.codex/auth.json
+    print_success "Auth file created."
 fi
 
 # ============================
@@ -321,3 +313,4 @@ if [[ "$install_backend" =~ ^[Yy]$ ]]; then
     echo "3. Maven Repo:        Copy your 'settings.xml' to /opt/apache-maven-3.6.3/conf/"
 
 fi
+
