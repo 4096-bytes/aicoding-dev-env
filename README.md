@@ -28,7 +28,7 @@
 
 ⬇️ **Codex 实战展示：** 快速将一个普通的登录页面重构为 **Glassmorphism (玻璃拟态)** 风格。
 
-https://github.com/user-attachments/assets/f9b509fe-c994-4014-b0d1-70e3bf9b1a3e
+https://github.com/user-attachments/assets/39717e9c-eba1-4c50-88c0-27c411c0a051
 
 ------
 
@@ -170,4 +170,5 @@ A: 它会检测现有环境：如果发现 NVM 会跳过；如果发现系统级
 Happy Coding! 🚀
 
 Powered by 4096Bytes Engineering Team
+
 
