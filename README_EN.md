@@ -1,185 +1,164 @@
 # 4096Bytes AICoding Dev Environment
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Ubuntu-lightgrey)](https://github.com/4096-bytes/aicoding-dev-env)
-
----
-
-**[🇺🇸 English]** | [🇨🇳 简体中文](README.md)
-
-**The exclusive cross-platform AI coding environment bootstrapper for the 4096Bytes team.**
-
-This project aims to set up a standardized full-stack development environment with a single command, pre-installing the core AI coding toolchain. Whether you are on Windows or Ubuntu, you can have a "Ready-to-Code" workspace in minutes.
-
-## ✨ Features
-
-The script automates the configuration of the following technology stack:
-
-- **OS Foundation**: Windows 11/10 WSL2 auto-installation, System drive migration (C -> D), Mirrored networking configuration.
-- **Shell**: Zsh + Oh My Zsh + Auto-suggestions & Syntax-highlighting plugins.
-- **Runtime**:
-  - **Node.js**: Node v22 (LTS) via NVM.
-  - **Java**: OpenJDK 8 (Optional).
-  - **Maven**: Maven 3.6.3 (Optional).
-- **Container**: Native Docker Engine installation + Systemd auto-start (Optional).
-- **AI Toolchain**:
-  - Pre-installed **OpenAI Codex CLI**.
-  - Auto-configured **4096Bytes Private Connection** (`config.toml`).
-  - Automatic API Key environment variable injection.
+[🇨🇳 简体中文](README.md) | **[🇺🇸 English]**
 
 ------
 
-## 🚀 Quick Start
+**4096Bytes Cross-Platform AI Coding Environment Automation Tool.**
 
-### 💻 Windows Users (Recommended)
+This project provides two solutions:
 
-For Windows 10 or Windows 11. The script handles WSL installation, drive migration, and Ubuntu bootstrapping automatically.
+1. **Quick Setup Script**: For users with an existing development environment who only need to install the AI toolchain.
+2. **Full Stack Bootstrap Script**: For new machines, automatically sets up the OS, Shell, Docker, Runtime, and full infrastructure.
 
-1. **Right-click** the Start menu and select **"Terminal (Admin)"** or **"PowerShell (Admin)"**.
-2. Copy and run the following command:
+------
 
-PowerShell
+## 🚦 Choose Your Path
 
+Please select the plan that best suits your current system status:
+
+| **Your Status**                  | **Requirements**                                             | **Recommended Plan**                    |
+| -------------------------------- | ------------------------------------------------------------ | --------------------------------------- |
+| **Veteran / Environment Ready**  | Node.js/Git already installed; only need Codex & 4096Bytes connection | [🚀 Plan A: Lightweight Config](#plan-a) |
+| **New PC / Missing Environment** | Nothing installed; need the full stack (Zsh, Docker, Java, Node, etc.) | [🏗️ Plan B: Build from Scratch](#plan-b) |
+
+------
+
+## 🚀 Plan A: Lightweight Config (Recommended)<a id="plan-a"></a>
+
+**Target Audience:** Users with a basic development environment (at least Node.js installed) who only need to enable AI coding capabilities.
+
+**Features:** Installs Codex CLI + Configures config.toml + Sets API Key.
+
+### 🐧 Ubuntu / Linux / WSL Users
+
+Run the following in your terminal:
+
+```bash
+curl -O https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/ubuntu/setup_codex_config.sh && bash setup_codex_config.sh
 ```
+
+### 🍎 macOS Users
+
+Run the following in your terminal:
+
+```bash
+curl -O https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/macos/setup_codex_config.sh && bash setup_codex_config.sh
+```
+
+------
+
+## 🏗️ Plan B: Build from Scratch (Full Stack)<a id="plan-b"></a>
+
+**Target Audience:** Users setting up a new computer or those who want to completely reset their development environment.
+
+**Features:** OS Optimization + Zsh Customization + Docker + Node(NVM) + Java/Maven (Optional) + AI Toolchain.
+
+### 💻 Windows Users (Win10/11)
+
+The script automatically handles WSL installation, image migration (C->D), and Ubuntu environment initialization.
+
+1. **Right-click** the Start Menu and select **"Terminal (Admin)"** or **"PowerShell (Admin)"**.
+2. Run the following command:
+
+```powershell
 irm https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/windows/setup_windows.ps1 | iex
 ```
 
-> **What the script does:**
->
-> 1. Pre-checks environment (Permissions/Virtualization).
-> 2. Installs WSL2 (Ubuntu).
-> 3. Migrates Ubuntu to Drive D (Saves space on C).
-> 4. Downloads the Ubuntu setup script automatically.
-> 5. **After Reboot**: It guides you into Ubuntu to finish the configuration.
+### 🐧 Ubuntu Users (Native)
 
-### 🐧 Ubuntu / Linux Users
+For native Ubuntu systems.
 
-For native Ubuntu systems or existing manual WSL installations.
-
-1. Open your terminal.
-2. Download and run the setup script:
-
-Bash
-
-```
+```bash
 wget -O setup_ubuntu.sh https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/ubuntu/setup_ubuntu.sh && bash setup_ubuntu.sh
 ```
 
+### 🍎 macOS Users (Intel/Apple Silicon)
+
+Automatically installs Homebrew, Oh My Zsh, Docker Desktop, etc.
+
+```bash
+curl -O https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/macos/setup_mac.sh && bash setup_mac.sh
+```
+
 ------
 
-## 🛠️ Dev Tools Configuration (VS Code Integration)
+## 🛠️ Dev Tools Configuration (VS Code)
 
-For the best developer experience, we strongly recommend using **Visual Studio Code** with WSL.
+To get the best AI coding experience, we recommend **Visual Studio Code**.
 
-### 1. Install Editor
+1. **Install VS Code**: 
+2. **Install Core Extensions**:
+   - **WSL**: (Required for Windows users) Connects to the Ubuntu environment.
+   - **Codex**: (Required) The 4096Bytes AI coding visualization client.
 
-- Download VS Code: https://code.visualstudio.com/download
+### ✨ Quick Start (Magic Move)
 
-### 2. Install Key Extensions
+Once configured, enter the project directory in your terminal (Ubuntu/macOS) and type:
 
-Open VS Code, go to the Extensions view (Sidebar), and install:
-
-- **WSL (Microsoft)**: **Required**. Allows you to edit and debug code running in Ubuntu directly from VS Code on Windows.
-- **Codex (AI Coding)**: **Recommended**. Provides a visual AI coding interface.
-
-### 3. How to Launch (Magic Move)
-
-Once installed, you don't need to manually open VS Code to find files. Simply navigate to your project directory in the Ubuntu (WSL) terminal and type:
-
-Bash
-
-```
+```bash
 code .
 ```
 
-This will launch the VS Code GUI on Windows, connected to your WSL environment. You can then use the Codex extension for AI-assisted coding directly in the GUI.
+The system will automatically launch the VS Code GUI, and you can start using the Codex extension immediately.
 
 ------
 
-## ⚙️ Post-Installation
+## ⚙️ Post-Installation (Manual Config)
 
-When the script prints `🎉 All Done!`, the underlying environment is ready.
+If you used **Plan B (Build from Scratch)**, please note the following steps after the script finishes:
 
-### 1. Apply Changes
+1. **Apply Configuration**:
 
-The script cannot force a refresh of the current shell session. Please manually run:
-
-Bash
-
-```
-source ~/.zshrc
-```
-
-### 2. Personal Configuration
-
-Following "Infrastructure as Code" principles, we do not touch your personal identity. Please configure manually:
-
-- **Git Identity**:
-
-  Bash
-
-  ```
-  git config --global user.name "Your Name"
-  git config --global user.email "you@example.com"
-  ```
-
-- **Maven Settings** (If Backend Stack was installed): Copy your private `settings.xml` to `/opt/apache-maven-3.6.3/conf/`.
-
-### 3. Start AI Coding (Ultimate Goal)
-
-You now have AI coding capabilities powered by 4096Bytes.
-
-1. Clone a project:
-
-   Bash
-
-   ```
-   git clone <your-project-repo>
-   cd <project-directory>
+   ```bash
+   source ~/.zshrc  # 或 source ~/.bashrc
    ```
 
-2. **Option A (CLI)**:
+2. **Add Personal Info** (Infrastructure scripts do not contain private data):
 
-   Bash
-
+   ```bash
+   git config --global user.name "Your Name"
+   git config --global user.email "you@example.com"
    ```
-   codex
-   ```
 
-3. **Option B (VS Code GUI)**:
+3. **Maven Private Repo** (If the backend stack was installed):
 
-   Bash
-
-   ```
-   code .
-   # Then use the Codex extension in the sidebar
-   ```
+   Copy your `settings.xml` to the corresponding Maven `conf` directory.
 
 ------
 
 ## 📂 Repository Structure
 
-Plaintext
-
 ```
 aicoding-dev-env/
 ├── windows/
-│   ├── setup_windows.ps1      # Windows Host Bootstrapper (WSL Mgmt/Migration)
-│   └── install.bat         # Offline Launcher (Auto-Admin elevation)
+│   ├── setup_windows.ps1
+│   └── install.bat
 ├── ubuntu/
-│   └── setup_ubuntu.sh     # Ubuntu Setup Script (Zsh/Node/Docker/Codex)
+│   ├── setup_ubuntu.sh
+│   └── setup_codex_config.sh
+├── macos/
+│   ├── setup_mac.sh
+│   └── setup_codex_config.sh
 └── README.md
 ```
 
 ## ❓ FAQ
 
-**Q: Windows script says "Running scripts is disabled on this system".** A: Run `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser` in Admin PowerShell, or simply use the `install.bat` launcher provided in the `windows/` directory.
+**Q: How do Windows users use "Plan A"?**
 
-**Q: Does this support macOS?** A: Currently focused on Windows (WSL) and Ubuntu. MacOS support is planned.
+A: Please enter your WSL (Ubuntu) terminal first, then run the Ubuntu version of the lightweight script inside WSL.
 
-**Q: I already have Node.js, will this overwrite it?** A: The script checks your environment. If NVM is detected, it skips installation. If a system-level Node is detected, it recommends installing NVM for better version management. Codex CLI is installed within NVM to avoid polluting the system.
+**Q: I get a 404 error when running the script?**
+
+A: Please check if your network can access GitHub Raw content, or try enabling a VPN.
+
+**Q: I already have Node.js installed. Will "Plan B" cause conflicts?**
+
+A: The script checks your existing environment: if it finds NVM, it skips that step; if it finds a system-level Node, it prompts you to install NVM for management. The Codex CLI is installed within the NVM environment by default and will not conflict.
 
 ------
 
+Happy Coding! 🚀
 
-**Happy Coding! 🚀** *Powered by 4096Bytes Engineering Team*
+Powered by 4096Bytes Engineering Team
