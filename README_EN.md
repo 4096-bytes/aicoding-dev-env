@@ -24,6 +24,14 @@ Please select the plan that best suits your current system status:
 
 ------
 
+## ✨ Live Demo
+
+⬇️ **Codex in Action:** Refactoring a basic login page into a **Glassmorphism** style in just minutes.
+
+https://github.com/user-attachments/assets/f9b509fe-c994-4014-b0d1-70e3bf9b1a3e
+
+------
+
 ## 🚀 Plan A: Lightweight Config (Recommended)<a id="plan-a"></a>
 
 **Target Audience:** Users with a basic development environment (at least Node.js installed) who only need to enable AI coding capabilities.
@@ -162,3 +170,4 @@ A: The script checks your existing environment: if it finds NVM, it skips that s
 Happy Coding! 🚀
 
 Powered by 4096Bytes Engineering Team
+
