@@ -41,7 +41,7 @@ For Windows 10 or Windows 11. The script handles WSL installation, drive migrati
 PowerShell
 
 ```
-irm https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/windows/setup_host.ps1 | iex
+irm https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/windows/setup_windows.ps1 | iex
 ```
 
 > **What the script does:**
@@ -180,5 +180,6 @@ aicoding-dev-env/
 **Q: I already have Node.js, will this overwrite it?** A: The script checks your environment. If NVM is detected, it skips installation. If a system-level Node is detected, it recommends installing NVM for better version management. Codex CLI is installed within NVM to avoid polluting the system.
 
 ------
+
 
 **Happy Coding! 🚀** *Powered by 4096Bytes Engineering Team*
