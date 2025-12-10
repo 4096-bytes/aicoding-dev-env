@@ -233,6 +233,17 @@ mkdir -p ~/.codex
 if [ -f "$HOME/.codex/config.toml" ]; then
     print_info "~/.codex/config.toml already exists. Skipping overwrite."
 else
+    # Domain Configuration - MANDATORY INPUT
+    echo ""
+    echo "----------------------------------------------------"
+    echo "Please enter the 4096bytes Server Domain."
+    echo "----------------------------------------------------"
+    
+    TARGET_DOMAIN=""
+    while [[ -z "$TARGET_DOMAIN" ]]; do
+        read -p "Domain > " TARGET_DOMAIN
+    done
+
     echo ">>> Writing ~/.codex/config.toml..."
     cat > ~/.codex/config.toml <<EOF
 model_provider = "crs"
@@ -243,12 +254,12 @@ preferred_auth_method = "apikey"
 
 [model_providers.crs]
 name = "crs"
-base_url = "https://aicoding.4096bytes.com/openai"
+base_url = "https://$TARGET_DOMAIN/openai"
 wire_api = "responses"
 requires_openai_auth = true
 env_key = "CRS_OAI_KEY"
 EOF
-    print_success "Config created."
+    print_success "Config created with domain: $TARGET_DOMAIN"
 fi
 
 # 8.3 Check and Write auth.json
@@ -308,4 +319,5 @@ echo "2. Git Credential:    git config --global credential.helper store"
 echo "                      (Stores password when cloning via HTTPS)"
 if [[ "$install_backend" =~ ^[Yy]$ ]]; then
     echo "3. Maven Repo:        Copy your 'settings.xml' to /opt/apache-maven-3.6.3/conf/"
+
 fi
