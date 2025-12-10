@@ -243,15 +243,14 @@ else
 model_provider = "crs"
 model = "gpt-5-codex"
 model_reasoning_effort = "high"
+network_access = "enabled"
 disable_response_storage = true
-preferred_auth_method = "apikey"
 
 [model_providers.crs]
 name = "crs"
 base_url = "https://$TARGET_DOMAIN/openai"
 wire_api = "responses"
 requires_openai_auth = true
-env_key = "CRS_OAI_KEY"
 EOF
     print_success "Config created."
 fi
@@ -260,14 +259,6 @@ fi
 if [ -f "$HOME/.codex/auth.json" ]; then
     print_info "~/.codex/auth.json already exists. Skipping."
 else
-    echo '{ "OPENAI_API_KEY": null }' > ~/.codex/auth.json
-    print_success "Auth file created."
-fi
-
-# 8.3 Environment Variable
-if grep -q "CRS_OAI_KEY" ~/.zshrc; then
-    print_info "API Key (CRS_OAI_KEY) already configured. Skipping."
-else
     echo ""
     echo "----------------------------------------------------"
     echo "Please enter your 4096bytes API Key."
@@ -275,12 +266,11 @@ else
     echo "----------------------------------------------------"
 
     CRS_KEY=""
-    while [[ -z "$CRS_KEY" ]]; do
+    while [[ -z "$CRS_KEY" ]]; do  
         read -p "API Key > " CRS_KEY
     done
-
-    echo "export CRS_OAI_KEY=$CRS_KEY" >> ~/.zshrc
-    print_success "Added CRS_OAI_KEY to .zshrc."
+    echo "{ \"OPENAI_API_KEY\": \"$CRS_KEY\" }" > ~/.codex/auth.json
+    print_success "Auth file created."
 fi
 
 # ============================
