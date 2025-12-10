@@ -28,7 +28,7 @@ Please select the plan that best suits your current system status:
 
 ⬇️ **Codex in Action:** Refactoring a basic login page into a **Glassmorphism** style in just minutes.
 
-https://github.com/user-attachments/assets/f9b509fe-c994-4014-b0d1-70e3bf9b1a3e
+https://github.com/user-attachments/assets/39717e9c-eba1-4c50-88c0-27c411c0a051
 
 ------
 
@@ -170,4 +170,5 @@ A: The script checks your existing environment: if it finds NVM, it skips that s
 Happy Coding! 🚀
 
 Powered by 4096Bytes Engineering Team
+
 
