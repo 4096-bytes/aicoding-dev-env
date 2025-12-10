@@ -41,7 +41,7 @@
 PowerShell
 
 ```
-irm https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/windows/setup_host.ps1 | iex
+irm https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/windows/setup_windows.ps1 | iex
 ```
 
 > **脚本执行流程：**
@@ -180,5 +180,6 @@ aicoding-dev-env/
 **Q: 我已有 Node.js 环境，脚本会覆盖吗？** A: 脚本会检测现有环境。如果检测到 NVM，会跳过安装；如果检测到系统级 Node，会提示你安装 NVM 以便更好地管理版本。Codex CLI 将安装在 NVM 环境下，不污染系统。
 
 ------
+
 
 **Happy Coding! 🚀** *Powered by 4096Bytes Engineering Team*
