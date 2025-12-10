@@ -1,10 +1,10 @@
-# 4096Bytes AICoding Dev Environment
+# AICoding Dev Environment
 
 [🇨🇳 简体中文](README.md) | **[🇺🇸 English]**
 
 ------
 
-**4096Bytes Cross-Platform AI Coding Environment Automation Tool.**
+**AI Coding Environment Automation Tool.**
 
 This project provides two solutions:
 
@@ -168,8 +168,3 @@ A: The script checks your existing environment: if it finds NVM, it skips that s
 ------
 
 Happy Coding! 🚀
-
-Powered by 4096Bytes Engineering Team
-
-
-
