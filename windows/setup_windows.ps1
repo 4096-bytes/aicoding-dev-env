@@ -1,6 +1,6 @@
-# setup_host_v2.ps1
-# 4096Bytes WSL Environment Auto-Setup (Modified Version)
-# Features: Admin Check, Docker/Virt Check, Smart WSL/Ubuntu Install, Migration, Network Config
+# setup_host_v4.ps1
+# 4096Bytes WSL Environment Auto-Setup (Final Fix)
+# Features: Admin Check, Docker/Virt Check, Encoding-Safe Detection, Migration, Network Config
 
 $ErrorActionPreference = "Stop"
 
@@ -34,6 +34,17 @@ function Print-Warning {
     Write-Host " [WARN] $text" -ForegroundColor Yellow
 }
 
+function Check-Ubuntu-Exists {
+    $raw = wsl --list --quiet 2>&1 | Out-String
+    if ($raw -match "Ubuntu") { return $true }
+    try {
+        $proc = Start-Process -FilePath "wsl" -ArgumentList "-d", "Ubuntu", "-e", "true" -NoNewWindow -PassThru -Wait -ErrorAction SilentlyContinue
+        if ($proc.ExitCode -eq 0) { return $true }
+    } catch {}
+    
+    return $false
+}
+
 # ==========================================
 # Step 1/4: Pre-check
 # ==========================================
@@ -58,86 +69,69 @@ if ($isWin11) {
     Print-Success "OS: Windows 10 (Build ${buildNumber})"
 }
 
-# 1.3 Check Virtualization (Modified: Docker Specific)
-# Only check virtualization if the user explicitly wants to use Docker.
+# 1.3 Check Virtualization (Docker Specific)
 $useDocker = Read-Host "Do you plan to use Docker? (Y/N)"
 
 if ($useDocker -eq 'Y' -or $useDocker -eq 'y') {
     Write-Host " -> Checking Virtualization support for Docker..." -ForegroundColor Gray
     try {
         $sysInfo = Get-CimInstance -ClassName Win32_ComputerSystem -ErrorAction Stop
-        
         if ($sysInfo.HypervisorPresent) {
             Print-Success "Virtualization is Enabled (Ready for Docker)."
         } else {
             Print-Error "Virtualization is DISABLED in BIOS!"
-            Write-Host " -> Docker requires Virtualization (VT-x / AMD-V)."
-            Write-Host " -> Guide: $LINK_VIRT"
+            Write-Host " -> Docker requires Virtualization."
             Pause
             Exit
         }
     } catch {
-        Print-Warning "Could not detect Virtualization status via WMI."
-        Write-Host " -> Assuming enabled based on manual verification. Continuing..."
+        Print-Warning "Could not detect Virtualization via WMI. Assuming enabled."
     }
 } else {
-    Write-Host " -> Skipping Virtualization check (User opted out of Docker)." -ForegroundColor Gray
+    Write-Host " -> Skipping Virtualization check." -ForegroundColor Gray
 }
 
 # ==========================================
-# Step 2/4: WSL & Ubuntu Installation (Fixed)
+# Step 2/4: WSL & Ubuntu Installation
 # ==========================================
 Print-Header "Step 2/4: WSL & Ubuntu Installation"
 
-# Define a variable to track if we need to reboot
 $needsReboot = $false
+$wslInstalled = (Get-Command "wsl.exe" -ErrorAction SilentlyContinue)
 
-# Initialize states
-$wslInstalled = $false
-$ubuntuInstalled = $false
+$ubuntuExists = Check-Ubuntu-Exists
 
-# 1. Check if 'wsl.exe' exists in the System Path
-if (Get-Command "wsl.exe" -ErrorAction SilentlyContinue) {
-    $wslInstalled = $true
-    
-    # 2. Check installed distributions
-    # Capture output to string. '2>&1' ensures errors don't leak to console.
-    $wslOutput = wsl --list --verbose 2>&1 | Out-String
-    
-    # 3. Check for "Ubuntu" keyword (case-insensitive)
-    if ($wslOutput -match "Ubuntu") {
-        $ubuntuInstalled = $true
-    }
-}
-
-# Debug Info (Optional - helps you confirm what script sees)
-# Write-Host "DEBUG: WSL Detected: $wslInstalled | Ubuntu Detected: $ubuntuInstalled" -ForegroundColor DarkGray
-
-# Installation Logic
-if ($wslInstalled -and $ubuntuInstalled) {
-    Print-Success "WSL Core and Ubuntu subsystem are already installed."
-} elseif ($wslInstalled -and -not $ubuntuInstalled) {
+if ($wslInstalled -and $ubuntuExists) {
+    Print-Success "WSL Core and Ubuntu subsystem are detected."
+} elseif ($wslInstalled -and -not $ubuntuExists) {
     Print-Warning "WSL Core detected, but Ubuntu is missing."
     Write-Host " -> Installing Ubuntu subsystem..."
-    wsl --install -d Ubuntu
-    Print-Success "Ubuntu installed."
+    
+    try {
+        wsl --install -d Ubuntu
+    } catch {
+        Write-Host " -> Log: Installation command finished." -ForegroundColor Gray
+    }
+    
+    # 再次检查
+    if (Check-Ubuntu-Exists) {
+        Print-Success "Ubuntu is ready."
+    } else {
+        Print-Error "Installation failed or could not be verified."
+        Pause
+        Exit
+    }
 } else {
     Print-Warning "WSL is NOT installed."
-    Write-Host " -> Installing WSL and Ubuntu... This depends on your internet speed."
-    Write-Host " -> DO NOT close this window."
-    
+    Write-Host " -> Installing WSL and Ubuntu..."
     $null = Read-Host "Press Enter to start installation..."
-    
     wsl --install
-    
     Print-Success "WSL Base and Ubuntu installed!"
     $needsReboot = $true
 }
 
 if ($needsReboot) {
-    Print-Warning "System reboot is required to finalize WSL installation."
-    Write-Host " -> Please reboot your computer manually."
-    Write-Host " -> After reboot, run this script again to continue migration."
+    Print-Warning "System reboot is required."
     Pause
     Exit
 }
@@ -150,12 +144,11 @@ Print-Header "Step 3/4: Migration to D Drive"
 if (Test-Path $WSL_DIR) {
     Print-Success "Target directory exists (${WSL_DIR}). Skipping migration."
 } else {
-    # Double check if Ubuntu is actually running/registered before export
-    if (wsl --list --quiet | Select-String "Ubuntu") {
+    # Migration Logic with Safety Check
+    if (Check-Ubuntu-Exists) {
         Print-Warning "Moving Ubuntu from C: to D: ..."
         Write-Host " -> This is a high IO operation. Do not force quit."
         
-        # Ensure Shutdown
         wsl --shutdown
         
         Write-Host " [1/3] Exporting system image..."
@@ -171,8 +164,8 @@ if (Test-Path $WSL_DIR) {
         Remove-Item $BACKUP_FILE
         Print-Success "Migration complete!"
     } else {
-        Print-Error "Ubuntu not found in WSL list. Cannot migrate."
-        Write-Host " -> Please ensure Ubuntu is installed and initialized at least once."
+        Print-Error "Ubuntu not detected. Cannot migrate."
+        Write-Host " -> Please run 'wsl' manually once to initialize it."
         Pause
         Exit
     }
@@ -184,11 +177,7 @@ if (Test-Path $WSL_DIR) {
 Print-Header "Step 4/4: Network Configuration"
 
 if ($isWin11) {
-    # Win11 Logic
     Write-Host "Windows 11 detected. We recommend 'Mirrored Mode'."
-    Write-Host " * Pros: Shared VPN IP, localhost access."
-    Write-Host " * Cons: Minor compatibility issues with specific VPN clients."
-    
     $netChoice = Read-Host "Enable Mirrored Network Mode? (Y/N)"
     
     if ($netChoice -eq 'Y' -or $netChoice -eq 'y') {
@@ -199,14 +188,12 @@ dnsTunneling=true
 autoProxy=true
 "@
         $configContent | Out-File -FilePath $WSL_CONFIG_PATH -Encoding ASCII
-        Print-Success "Configured: Mirrored Mode (Host IP = 127.0.0.1)"
+        Print-Success "Configured: Mirrored Mode"
     } else {
         if (Test-Path $WSL_CONFIG_PATH) { Remove-Item $WSL_CONFIG_PATH }
         Print-Success "Configured: Traditional NAT Mode"
     }
 } else {
-    # Win10 Logic
-    Print-Warning "Windows 10 detected. Forcing Traditional NAT Mode."
     if (Test-Path $WSL_CONFIG_PATH) { Remove-Item $WSL_CONFIG_PATH }
     Print-Success "Old configurations cleaned."
 }
@@ -216,17 +203,13 @@ autoProxy=true
 # ==========================================
 Print-Header "SETUP COMPLETE!"
 
-Write-Host "Recommendation:" -ForegroundColor Cyan
-Write-Host " -> Install 'Windows Terminal' from Microsoft Store for best experience."
-Write-Host " -> Link: $LINK_TERMINAL" -ForegroundColor Blue
+Write-Host "Recommendation: Install 'Windows Terminal'."
+Write-Host "Link: $LINK_TERMINAL" -ForegroundColor Blue
 Write-Host ""
 
 $startChoice = Read-Host "Start Ubuntu now? (Y/N)"
 if ($startChoice -eq 'Y' -or $startChoice -eq 'y') {
-    Write-Host "Starting Ubuntu..."
     wsl -d Ubuntu
 } else {
-    Write-Host "Script finished. Type 'wsl' in CMD to start later."
     Pause
 }
-
