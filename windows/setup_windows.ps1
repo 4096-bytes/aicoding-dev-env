@@ -85,36 +85,33 @@ if ($useDocker -eq 'Y' -or $useDocker -eq 'y') {
 }
 
 # ==========================================
-# Step 2/4: WSL & Ubuntu Installation
+# Step 2/4: WSL & Ubuntu Installation (Fixed)
 # ==========================================
 Print-Header "Step 2/4: WSL & Ubuntu Installation"
 
 # Define a variable to track if we need to reboot
 $needsReboot = $false
 
-# Check if WSL command works and list distros
+# Initialize states
 $wslInstalled = $false
 $ubuntuInstalled = $false
 
-try {
-    # Try to list distros. If wsl is not installed, this throws an error.
-    # capture stdout and stderr to avoid red text in console if it fails
-    $process = Start-Process -FilePath "wsl" -ArgumentList "--list", "--verbose" -NoNewWindow -PassThru -Wait -RedirectStandardOutput "NUL" -RedirectStandardError "NUL"
+# 1. Check if 'wsl.exe' exists in the System Path
+if (Get-Command "wsl.exe" -ErrorAction SilentlyContinue) {
+    $wslInstalled = $true
     
-    if ($process.ExitCode -eq 0) {
-        $wslInstalled = $true
-        # Now get the actual text to check for Ubuntu
-        $wslOutput = wsl --list --quiet 2>$null
-        # Convert output to string explicitly to handle encoding
-        $wslString = [string]$wslOutput
-        
-        if ($wslString -match "Ubuntu") {
-            $ubuntuInstalled = $true
-        }
+    # 2. Check installed distributions
+    # Capture output to string. '2>&1' ensures errors don't leak to console.
+    $wslOutput = wsl --list --verbose 2>&1 | Out-String
+    
+    # 3. Check for "Ubuntu" keyword (case-insensitive)
+    if ($wslOutput -match "Ubuntu") {
+        $ubuntuInstalled = $true
     }
-} catch {
-    $wslInstalled = $false
 }
+
+# Debug Info (Optional - helps you confirm what script sees)
+# Write-Host "DEBUG: WSL Detected: $wslInstalled | Ubuntu Detected: $ubuntuInstalled" -ForegroundColor DarkGray
 
 # Installation Logic
 if ($wslInstalled -and $ubuntuInstalled) {
@@ -124,8 +121,6 @@ if ($wslInstalled -and $ubuntuInstalled) {
     Write-Host " -> Installing Ubuntu subsystem..."
     wsl --install -d Ubuntu
     Print-Success "Ubuntu installed."
-    # Usually adding a distro to existing WSL doesn't strictly require a reboot, 
-    # but it's safer to proceed carefully.
 } else {
     Print-Warning "WSL is NOT installed."
     Write-Host " -> Installing WSL and Ubuntu... This depends on your internet speed."
@@ -234,3 +229,4 @@ if ($startChoice -eq 'Y' -or $startChoice -eq 'y') {
     Write-Host "Script finished. Type 'wsl' in CMD to start later."
     Pause
 }
+
