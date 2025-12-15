@@ -3,7 +3,7 @@ cd /d "%~dp0"
 Title 4096Bytes Setup Launcher
 
 :: ==============================================================
-:: Launcher for setup_host.ps1
+:: Launcher for setup_windows.ps1
 :: 1. Auto-requests Administrator privileges (UAC).
 :: 2. Bypasses PowerShell Execution Policy restrictions.
 :: ==============================================================
@@ -19,3 +19,4 @@ PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& {Start-Process PowerSh
 :: Optional: Close this launcher window immediately after spawning the PS process
 
 exit
+
