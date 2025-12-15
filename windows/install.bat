@@ -14,7 +14,8 @@ echo [INFO] A UAC window will pop up. Please click 'Yes'.
 echo.
 
 :: Launch PowerShell as Administrator
-PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& {Start-Process PowerShell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File ""%~dp0setup_host.ps1""' -Verb RunAs}"
+PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& {Start-Process PowerShell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File ""%~dp0setup_windows.ps1""' -Verb RunAs}"
 
 :: Optional: Close this launcher window immediately after spawning the PS process
+
 exit
