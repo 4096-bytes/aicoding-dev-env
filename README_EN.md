@@ -1,3 +1,6 @@
+[![Email](https://img.shields.io/badge/Email-x4096bytes%40gmail.com-red?logo=gmail&logoColor=white)](mailto:x4096bytes@gmail.com)
+[![Telegram](https://img.shields.io/badge/Telegram-@x4096bytes-blue?logo=telegram&logoColor=white)](https://t.me/x4096bytes)
+
 # AICoding Dev Environment
 
 [🇨🇳 简体中文](README.md) | **[🇺🇸 English]**
@@ -168,3 +171,4 @@ A: The script checks your existing environment: if it finds NVM, it skips that s
 ------
 
 Happy Coding! 🚀
+
