@@ -1,3 +1,6 @@
+[![Email](https://img.shields.io/badge/Email-x4096bytes%40gmail.com-red?logo=gmail&logoColor=white)](mailto:x4096bytes@gmail.com)
+[![Telegram](https://img.shields.io/badge/Telegram-@x4096bytes-blue?logo=telegram&logoColor=white)](https://t.me/x4096bytes)
+
 # AICoding Dev Environment
 
 **[🇨🇳 简体中文]** | [🇺🇸 English](README_EN.md) 
@@ -165,6 +168,14 @@ Q: 我已有 Node.js，运行“方案 B”会冲突吗？
 
 A: 它会检测现有环境：如果发现 NVM 会跳过；如果发现系统级 Node，会提示你安装 NVM 纳管。Codex CLI 默认安装在 NVM 环境中，互不影响。
 
+## 💎 Codex 订阅与联系
+如果您需要开通 Codex 订阅 服务或有任何疑问，请联系我们：
+
+📧 Email: [x4096bytes@gmail.com](mailto:x4096bytes@gmail.com)
+
+✈️ Telegram: [@x4096bytes](https://t.me/x4096bytes)
+
 ------
 
 Happy Coding! 🚀
+
