@@ -291,26 +291,26 @@ fi
 echo -e "\n\033[1;32m========================================\033[0m"
 echo -e "\033[1;32m🎉  All Done! Ubuntu Environment is Ready.\033[0m"
 echo -e "\033[1;32m========================================\033[0m"
-echo "IMPORTANT: The script cannot refresh your current shell."
-echo "Please execute the following command MANUALLY to apply changes:"
+echo "IMPORTANT: You are currently in the installer shell (Bash)."
+echo "To activate your new Zsh environment immediately, run:"
 echo ""
-echo -e "\033[1;33m    source ~/.zshrc\033[0m"
+echo -e "\033[1;33m    zsh\033[0m"
 echo ""
+echo "(This will switch you to Zsh and automatically load all configurations)"
 
-echo -e "\033[1;36m🚀  Ready to Code!\033[0m"
+echo -e "\n\033[1;36m🚀  Ready to Code!\033[0m"
 echo "You can now start AI coding:"
-echo "1. git clone <your-project-repo>"
-echo "2. cd <project-directory>"
-echo "3. Type 'codex' to start the AI agent."
+echo "1. Type 'zsh' to enter the environment"
+echo "2. git clone <your-project-repo>"
+echo "3. cd <project-directory>"
+echo "4. Type 'codex' to start the AI agent."
 
 echo ""
 echo "Reminder - Manual Configurations Needed:"
 echo "1. Git Identity:      git config --global user.name \"Your Name\""
 echo "                      git config --global user.email \"you@example.com\""
 echo "2. Git Credential:    git config --global credential.helper store"
-echo "                      (Stores password when cloning via HTTPS)"
 if [[ "$install_backend" =~ ^[Yy]$ ]]; then
     echo "3. Maven Repo:        Copy your 'settings.xml' to /opt/apache-maven-3.6.3/conf/"
-
 fi
 
