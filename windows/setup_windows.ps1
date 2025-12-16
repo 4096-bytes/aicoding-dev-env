@@ -112,8 +112,8 @@ if ($wslInstalled -and $ubuntuExists) {
     } catch {
         Write-Host " -> Log: Installation command finished." -ForegroundColor Gray
     }
-    
-    # 再次检查
+
+    # Re-check
     if (Check-Ubuntu-Exists) {
         Print-Success "Ubuntu is ready."
     } else {

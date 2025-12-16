@@ -41,6 +41,14 @@ https://github.com/user-attachments/assets/39717e9c-eba1-4c50-88c0-27c411c0a051
 
 **Features:** Installs Codex CLI + Configures config.toml + Sets API Key.
 
+### 💻 Windows Users
+
+Run in PowerShell (no clone required):
+
+```powershell
+irm https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/windows/setup_codex_config.ps1 | iex
+```
+
 ### 🐧 Ubuntu / Linux / WSL Users
 
 Run the following in your terminal:
@@ -91,82 +99,6 @@ Automatically installs Homebrew, Oh My Zsh, Docker Desktop, etc.
 ```bash
 curl -O https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/macos/setup_mac.sh && bash setup_mac.sh
 ```
-
-------
-
-## 🛠️ Dev Tools Configuration (VS Code)
-
-To get the best AI coding experience, we recommend **Visual Studio Code**.
-
-1. **Install VS Code**: 
-2. **Install Core Extensions**:
-   - **WSL**: (Required for Windows users) Connects to the Ubuntu environment.
-   - **Codex**: (Required) The AI coding visualization client.
-
-### ✨ Quick Start (Magic Move)
-
-Once configured, enter the project directory in your terminal (Ubuntu/macOS) and type:
-
-```bash
-code .
-```
-
-The system will automatically launch the VS Code GUI, and you can start using the Codex extension immediately.
-
-------
-
-## ⚙️ Post-Installation (Manual Config)
-
-If you used **Plan B (Build from Scratch)**, please note the following steps after the script finishes:
-
-1. **Apply Configuration**:
-
-   ```bash
-   source ~/.zshrc  # 或 source ~/.bashrc
-   ```
-
-2. **Add Personal Info** (Infrastructure scripts do not contain private data):
-
-   ```bash
-   git config --global user.name "Your Name"
-   git config --global user.email "you@example.com"
-   ```
-
-3. **Maven Private Repo** (If the backend stack was installed):
-
-   Copy your `settings.xml` to the corresponding Maven `conf` directory.
-
-------
-
-## 📂 Repository Structure
-
-```
-aicoding-dev-env/
-├── windows/
-│   ├── setup_windows.ps1
-│   └── install.bat
-├── ubuntu/
-│   ├── setup_ubuntu.sh
-│   └── setup_codex_config.sh
-├── macos/
-│   ├── setup_mac.sh
-│   └── setup_codex_config.sh
-└── README.md
-```
-
-## ❓ FAQ
-
-**Q: How do Windows users use "Plan A"?**
-
-A: Please enter your WSL (Ubuntu) terminal first, then run the Ubuntu version of the lightweight script inside WSL.
-
-**Q: I get a 404 error when running the script?**
-
-A: Please check if your network can access GitHub Raw content, or try enabling a VPN.
-
-**Q: I already have Node.js installed. Will "Plan B" cause conflicts?**
-
-A: The script checks your existing environment: if it finds NVM, it skips that step; if it finds a system-level Node, it prompts you to install NVM for management. The Codex CLI is installed within the NVM environment by default and will not conflict.
 
 ------
 

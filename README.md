@@ -41,6 +41,14 @@ https://github.com/user-attachments/assets/39717e9c-eba1-4c50-88c0-27c411c0a051
 
 功能：安装 Codex CLI + 配置 config.toml + 设置 API Key。
 
+### 💻 Windows 用户
+
+在 PowerShell 运行（无需克隆仓库）：
+
+```powershell
+irm https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/windows/setup_codex_config.ps1 | iex
+```
+
 ### 🐧 Ubuntu / Linux / WSL 用户
 
 在终端运行：
@@ -94,82 +102,8 @@ curl -O https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/macos
 
 ------
 
-## 🛠️ 开发工具配置 (VS Code)
-
-为了获得最佳的 AI 编程体验，我们推荐 **Visual Studio Code**。
-
-1. **安装 VS Code**: [官网下载](https://code.visualstudio.com/download)
-2. **安装核心插件**:
-   - **WSL**: (Windows 用户必装) 用于连接 Ubuntu 环境。
-   - **Codex**: (必装) AI 编程可视化客户端。
-
-### ✨ 极速启动 (Magic Move)
-
-配置完成后，在终端（Ubuntu/macOS）进入项目目录，直接输入：
-
-```bash
-code .
-```
-
-系统会自动拉起 VS Code GUI，你即可开始使用 Codex 插件进行 AI 编程。
-
-------
-
-## ⚙️ 后置操作 (Manual Config)
-
-如果你使用的是 **方案 B (从零搭建)**，脚本结束后请留意：
-
-1. **生效配置**:
-
-   ```bash
-   source ~/.zshrc  # 或 source ~/.bashrc
-   ```
-   
-2. **补充个人信息** (基础设施脚本不包含个人隐私):
-
-   ```bash
-   git config --global user.name "Your Name"
-   git config --global user.email "you@example.com"
-   ```
-   
-3. Maven 私服 (如果安装了后端栈):
-
-   将 settings.xml 复制到对应的 Maven conf 目录下。
-
-------
-
-## 📂 仓库结构
-
-```
-aicoding-dev-env/
-├── windows/
-│   ├── setup_windows.ps1      # Windows 宿主引导 (WSL安装/迁移)
-│   └── install.bat         # 离线启动器
-├── ubuntu/
-│   ├── setup_ubuntu.sh     # Ubuntu 全量安装脚本
-│   └── setup_codex_config.sh # Ubuntu/WSL 轻量配置脚本
-├── macos/
-│   ├── setup_mac.sh        # macOS 全量安装脚本 (Homebrew等)
-│   └── setup_codex_config.sh # macOS 轻量配置脚本
-└── README.md
-```
-
-## ❓ 常见问题 (FAQ)
-
-Q: Windows 用户如何使用“方案 A”？
-
-A: 请先进入你的 WSL (Ubuntu) 终端，然后在 WSL 内部运行 Ubuntu 版本的轻量级脚本。
-
-Q: 运行脚本时提示 404？
-
-A: 请检查你的网络是否能正常访问 GitHub Raw 内容，或尝试开启 VPN。
-
-Q: 我已有 Node.js，运行“方案 B”会冲突吗？
-
-A: 它会检测现有环境：如果发现 NVM 会跳过；如果发现系统级 Node，会提示你安装 NVM 纳管。Codex CLI 默认安装在 NVM 环境中，互不影响。
-
-## 💎 Codex 订阅与联系
-如果您需要开通 Codex 订阅 服务或有任何疑问，请联系我们：
+## 💎 Codex 精品小车拼车
+如需 Codex 拼车或有任何疑问，请联系我们：
 
 📧 Email: [x4096bytes@gmail.com](mailto:x4096bytes@gmail.com)
 
