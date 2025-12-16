@@ -35,6 +35,12 @@ https://github.com/user-attachments/assets/39717e9c-eba1-4c50-88c0-27c411c0a051
 
 ------
 
+## 🌐 网络说明
+
+通过 4096Bytes 使用 Codex 无需开启 VPN。为获得更快、更稳定的体验，建议关闭 VPN/代理后再使用。
+
+------
+
 ## 🚀 方案 A：轻量级配置 (推荐)<a id="plan-a"></a>
 
 适用人群：已有基础开发环境（至少已安装 Node.js），仅需接入 AI 编程能力的用户。

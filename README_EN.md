@@ -35,6 +35,12 @@ https://github.com/user-attachments/assets/39717e9c-eba1-4c50-88c0-27c411c0a051
 
 ------
 
+## 🌐 Network Note
+
+Using Codex via 4096Bytes does not require a VPN. For better speed and stability, we recommend turning off your VPN/proxy while using it.
+
+------
+
 ## 🚀 Plan A: Lightweight Config (Recommended)<a id="plan-a"></a>
 
 **Target Audience:** Users with a basic development environment (at least Node.js installed) who only need to enable AI coding capabilities.
