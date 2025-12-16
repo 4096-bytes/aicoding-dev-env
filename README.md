@@ -49,6 +49,8 @@ https://github.com/user-attachments/assets/39717e9c-eba1-4c50-88c0-27c411c0a051
 irm https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/windows/setup_codex_config.ps1 | iex
 ```
 
+完成后：请前往下文的「[IDE 插件集成](#ide-plugins)」章节，安装并配置 VS Code/Cursor 的 Codex 插件（选择 Use API Key 登录）。
+
 ### 🐧 Ubuntu / Linux / WSL 用户
 
 在终端运行：
@@ -57,6 +59,8 @@ irm https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/windows/s
 curl -O https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/ubuntu/setup_codex_config.sh && bash setup_codex_config.sh
 ```
 
+完成后：请前往下文的「[IDE 插件集成](#ide-plugins)」章节，安装并配置 VS Code/Cursor 的 Codex 插件（选择 Use API Key 登录）。
+
 ### 🍎 macOS 用户
 
 在终端运行：
@@ -64,6 +68,8 @@ curl -O https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/ubunt
 ```bash
 curl -O https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/macos/setup_codex_config.sh && bash setup_codex_config.sh
 ```
+
+完成后：请前往下文的「[IDE 插件集成](#ide-plugins)」章节，安装并配置 VS Code/Cursor 的 Codex 插件（选择 Use API Key 登录）。
 
 ------
 
@@ -99,6 +105,21 @@ wget -O setup_ubuntu.sh https://raw.githubusercontent.com/4096-bytes/aicoding-de
 ```bash
 curl -O https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/macos/setup_mac.sh && bash setup_mac.sh
 ```
+
+------
+
+## 🧩 IDE 插件集成<a id="ide-plugins"></a>
+
+想在 IDE 中直接使用 Codex？可以在 VS Code 或 Cursor 中安装官方插件。
+
+- VS Code 下载：<https://code.visualstudio.com/Download>
+- Cursor 下载：<https://cursor.com>
+
+操作步骤：
+
+1) 打开 VS Code 或 Cursor，进入扩展（Extensions/Marketplace）。
+2) 搜索并安装插件 “Codex”，请确保选择来自 openai.com 的官方插件。
+3) 安装完成后，在插件设置中选择 “Use API Key” 方式，输入你的 API Key，即可开始 Coding。
 
 ------
 

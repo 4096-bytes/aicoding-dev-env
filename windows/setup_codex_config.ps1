@@ -129,4 +129,5 @@ Set-Content -LiteralPath (Join-Path $configDir "auth.json") -Value $authJson -En
 Write-Ok "~/.codex/auth.json created."
 
 Write-Header "Done"
-Write-Host "You can now run: codex" -ForegroundColor Gray
+Write-Warn "Please close this terminal window and open a new one."
+Write-Host "Then run: codex" -ForegroundColor Gray

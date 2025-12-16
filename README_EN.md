@@ -49,6 +49,8 @@ Run in PowerShell (no clone required):
 irm https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/windows/setup_codex_config.ps1 | iex
 ```
 
+After completing this step: go to the section below, "IDE Plugin Integration", to install and configure the Codex extension for VS Code/Cursor (choose Use API Key to sign in).
+
 ### 🐧 Ubuntu / Linux / WSL Users
 
 Run the following in your terminal:
@@ -57,6 +59,8 @@ Run the following in your terminal:
 curl -O https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/ubuntu/setup_codex_config.sh && bash setup_codex_config.sh
 ```
 
+After completing this step: go to the section below, "IDE Plugin Integration", to install and configure the Codex extension for VS Code/Cursor (choose Use API Key to sign in).
+
 ### 🍎 macOS Users
 
 Run the following in your terminal:
@@ -64,6 +68,8 @@ Run the following in your terminal:
 ```bash
 curl -O https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/macos/setup_codex_config.sh && bash setup_codex_config.sh
 ```
+
+After completing this step: go to the section below, "IDE Plugin Integration", to install and configure the Codex extension for VS Code/Cursor (choose Use API Key to sign in).
 
 ------
 
@@ -102,5 +108,28 @@ curl -O https://raw.githubusercontent.com/4096-bytes/aicoding-dev-env/main/macos
 
 ------
 
-Happy Coding! 🚀
+## 🧩 IDE Plugin Integration<a id="ide-plugins"></a>
 
+Want to use Codex directly inside your IDE? Install the official extension in VS Code or Cursor.
+
+- VS Code Download: <https://code.visualstudio.com/Download>
+- Cursor Download: <https://cursor.com>
+
+Steps:
+
+1) Open VS Code or Cursor and go to Extensions/Marketplace.
+2) Search for and install the extension “Codex”. Make sure it is the official one from openai.com.
+3) After installation, choose “Use API Key” in the extension’s sign-in options and enter your API key to start coding.
+
+------
+
+## 💎 Codex Group Access
+For Codex group access or any questions, contact us:
+
+📧 Email: [x4096bytes@gmail.com](mailto:x4096bytes@gmail.com)
+
+✈️ Telegram: [@x4096bytes](https://t.me/x4096bytes)
+
+------
+
+Happy Coding! 🚀
