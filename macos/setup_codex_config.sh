@@ -15,34 +15,62 @@ RESET="\033[0m"
 echo -e "${CYAN}>>> 4096Bytes Codex Configuration Utility (macOS)${RESET}"
 
 # ==========================================
+# 0. Pre-flight Check: Node.js Version
+# ==========================================
+echo -e "\n${CYAN}[1/4] Checking Node.js Environment...${RESET}"
+
+if ! command -v node &> /dev/null; then
+    echo -e "${RED}[ERROR] Node.js is not installed.${RESET}"
+    echo "Please install Node.js (Version > 20) first."
+    echo "Recommended: brew install node"
+    exit 1
+fi
+
+# Extract Major Version (e.g., v22.3.0 -> 22)
+NODE_VER=$(node -v)
+NODE_MAJOR=$(echo "$NODE_VER" | cut -d'.' -f1 | tr -d 'v')
+
+echo -e "Detected Node.js version: ${YELLOW}$NODE_VER${RESET}"
+
+# Check if version is greater than 20 ( > 20 )
+if [ "$NODE_MAJOR" -le 20 ]; then
+    echo -e "${RED}[ERROR] Node.js version must be greater than 20.${RESET}"
+    echo -e "Current version is ${YELLOW}$NODE_MAJOR${RESET}, but > 20 is required."
+    echo "Please upgrade Node.js and try again."
+    exit 1
+else
+    echo -e "${GREEN}✓ Node.js version check passed ($NODE_VER).${RESET}"
+fi
+
+# ==========================================
 # 1. Check & Install Codex CLI
 # ==========================================
-echo -e "\n${CYAN}[1/3] Checking Codex CLI...${RESET}"
+echo -e "\n${CYAN}[2/4] Checking Codex CLI...${RESET}"
 
 if command -v codex &> /dev/null; then
     echo -e "${GREEN}✓ Codex CLI is already installed.${RESET}"
 else
     echo -e "${YELLOW}Codex CLI not found. Installing via npm...${RESET}"
-    if command -v npm &> /dev/null; then
-        # Try installing globally. If it fails due to permissions, warn user.
-        if npm install -g @openai/codex@latest; then
-            echo -e "${GREEN}✓ Codex CLI installed.${RESET}"
-        else
-            echo -e "${RED}[ERROR] Installation failed. You might need 'sudo'.${RESET}"
-            echo "Try running: sudo npm install -g @openai/codex@latest"
-            exit 1
-        fi
+    
+    # Try installing globally
+    if npm install -g @openai/codex@latest; then
+        echo -e "${GREEN}✓ Codex CLI installed.${RESET}"
     else
-        echo -e "${RED}[ERROR] npm is not installed. Please install Node.js first.${RESET}"
-        echo "Recommended: brew install node"
-        exit 1
+        echo -e "${RED}[ERROR] Installation failed. You might need 'sudo'.${RESET}"
+        echo -e "${YELLOW}Attempting to install with sudo...${RESET}"
+        if sudo npm install -g @openai/codex@latest; then
+             echo -e "${GREEN}✓ Codex CLI installed (with sudo).${RESET}"
+        else
+             echo -e "${RED}[FATAL] Could not install Codex CLI.${RESET}"
+             exit 1
+        fi
     fi
 fi
 
 # ==========================================
 # 2. Gather Information (Domain & Key)
 # ==========================================
-echo -e "\n${CYAN}[2/3] Configuration Setup${RESET}"
+echo -e "\n${CYAN}[3/4] Configuration Setup${RESET}"
 
 # Domain Input
 echo "Please enter the 4096bytes Server Domain."
@@ -62,7 +90,7 @@ done
 # ==========================================
 # 3. Write Config Files
 # ==========================================
-echo -e "\n${CYAN}[3/3] Writing Configuration Files${RESET}"
+echo -e "\n${CYAN}[4/4] Writing Configuration Files${RESET}"
 
 CONFIG_DIR="$HOME/.codex"
 mkdir -p "$CONFIG_DIR"
@@ -91,9 +119,8 @@ EOF
 echo -e "${GREEN}✓ ~/.codex/config.toml updated.${RESET}"
 
 # Write auth.json
-# We overwrite this ensuring OPENAI_API_KEY is null
 echo "{ \"OPENAI_API_KEY\": \"$CRS_KEY\" }" > "$CONFIG_DIR/auth.json"
-echo -e "${GREEN}✓ ~/.codex/auth.json updated .${RESET}"
+echo -e "${GREEN}✓ ~/.codex/auth.json updated.${RESET}"
 
 # ==========================================
 # Finish
@@ -101,9 +128,12 @@ echo -e "${GREEN}✓ ~/.codex/auth.json updated .${RESET}"
 echo -e "\n${GREEN}========================================${RESET}"
 echo -e "${GREEN}🎉 Configuration Complete!${RESET}"
 echo -e "${GREEN}========================================${RESET}"
-echo "To apply the environment variable changes, please run:"
 echo ""
-echo -e "    ${YELLOW}source $RC_FILE${RESET}"
+echo -e "${YELLOW}!!! IMPORTANT ACTION REQUIRED !!!${RESET}"
+echo -e "To ensure the 'codex' command works correctly, please:"
+echo -e "1. ${CYAN}Restart your terminal${RESET} (Close and open a new window)"
+echo -e "   OR run: ${CYAN}hash -r${RESET} (to refresh command cache)"
 echo ""
-echo "Then you can verify by running:"
-echo "    codex"
+echo "Then verification by running:"
+echo -e "   ${GREEN}codex${RESET}"
+echo ""
