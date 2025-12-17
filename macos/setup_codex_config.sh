@@ -105,7 +105,7 @@ fi
 # Write config.toml
 cat > "$CONFIG_DIR/config.toml" <<EOF
 model_provider = "crs"
-model = "gpt-5-codex"
+model = "gpt-5.1-codex-max"
 model_reasoning_effort = "high"
 network_access = "enabled"
 disable_response_storage = true
